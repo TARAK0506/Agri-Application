@@ -12,9 +12,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 # Copy the trained model files into the container
-COPY Crop_Disease_Prediction_model.h5 /app/
-COPY DecisionTree.pkl /app/
-COPY class_indices.json /app/
+# COPY Crop_Disease_Prediction_model.h5 /app/
+# COPY DecisionTree.pkl /app/
+# COPY class_indices.json /app/
 
 
 
