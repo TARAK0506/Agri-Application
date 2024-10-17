@@ -155,7 +155,7 @@ working_dir = os.path.dirname(os.path.abspath(__file__))
 def load_model():
     """Load the models and return them."""
     # Load the Crop Disease Prediction model
-    crop_disease_model_path = os.path.join(working_dir, 'Crop Disease Prediction model.h5')
+    crop_disease_model_path = os.path.join(working_dir,'app', 'Crop Disease Prediction model.h5')
     if not os.path.exists(crop_disease_model_path):
         raise FileNotFoundError(f"Model file not found: {crop_disease_model_path}")
     
@@ -163,12 +163,12 @@ def load_model():
     crop_disease_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
     # Load the class names for the crop disease prediction model
-    class_indices_path = os.path.join(working_dir, 'class_indices.json')
+    class_indices_path = os.path.join(working_dir, 'app', 'class_indices.json')
     with open(class_indices_path, 'r') as f:
         class_indices = json.load(f)
 
     # Load the Crop Recommendation System model
-    crop_recommendation_model_path = os.path.join(working_dir, 'DecisionTree.pkl')
+    crop_recommendation_model_path = os.path.join(working_dir,'app', 'DecisionTree.pkl')
     with open(crop_recommendation_model_path, 'rb') as model_file:
         crop_recommendation_model = pickle.load(model_file)
 
