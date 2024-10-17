@@ -32,6 +32,8 @@ docker-compose.yml
 
 # Ignore Jupyter Notebooks
 Notebooks/
+Models/
+app/
 
 
 

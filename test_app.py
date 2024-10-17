@@ -177,7 +177,7 @@
 #     unittest.main()
 
 
-from app.app import app
+from app import app
 import unittest
 import warnings
 import numpy as np
