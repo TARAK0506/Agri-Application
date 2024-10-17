@@ -1,0 +1,13 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+*.py text
+*.ipynb text
+
+
+# Treat large files as binary to avoid diffing and merging
+*.h5 binary
+*.ckpt binary
+*.pkl binary
+

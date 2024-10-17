@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - TF_ENABLE_ONEDNN_OPTS=0
