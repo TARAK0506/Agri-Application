@@ -23,7 +23,6 @@ docker-compose.yml
 # Ignore data files that are not needed in the image
 *.csv
 *.xlsx
-*.json
 
 # Ignore other unnecessary files
 *.log
