@@ -126,9 +126,10 @@
     
     
 import os
+import sys
 import numpy as np
 import tensorflow as tf
-from keras.models import load_model as keras_load_model  # type: ignore
+from keras.models import load_model as keras_load_model          
 from flask import Flask, request, jsonify, render_template
 from PIL import Image
 import io
@@ -138,10 +139,18 @@ import pickle
 # Set the environment variable to disable oneDNN custom operations
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
+
+# root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# # print(f"Root directory: {root_dir}")
+# sys.path.append(root_dir)
+# os.chdir(root_dir)
+
+
 app = Flask(__name__)
 
 # Get the working directory
 working_dir = os.path.dirname(os.path.abspath(__file__))
+# print(f"Working directory: {working_dir}")
 
 def load_model():
     """Load the models and return them."""
@@ -167,6 +176,12 @@ def load_model():
 
 # Load models
 crop_disease_model, class_indices, crop_recommendation_model = load_model()
+
+# print("Models loaded successfully")
+
+# print("Crop Disease Model: ", crop_disease_model)
+# print("Class Indices: ", class_indices)
+# print("Crop Recommendation Model: ", crop_recommendation_model)
 
 # Preprocess image for crop disease prediction
 def preprocess_image(image):

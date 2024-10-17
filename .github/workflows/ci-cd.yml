@@ -38,7 +38,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
 
@@ -46,7 +46,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install gdown  # Install gdown to download from Google Drive
+        pip install gdown                                   # Install gdown to download files from Google Drive  
 
     - name: Download data from Google Drive
       run: |
@@ -55,6 +55,7 @@ jobs:
 
         gdown "https://drive.google.com/file/d/1qGff2GL_azXE_3g1IjbipeWx55uXnzlE" -O "./app/DecisionTree.pkl"
         # The file will be downloaded and saved at ./app/DecisionTree.pkl
+        
 
 
 
