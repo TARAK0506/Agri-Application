@@ -1,1 +1,1 @@
-Agricultural APP
+# Streamlined Data Science Deployment: FastAPI, Docker, and GitHub Actions.

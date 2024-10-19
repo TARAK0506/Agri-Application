@@ -37,6 +37,7 @@ Data/
 app/
 Models/
 temp/
+tests/
 
 
 # Jupyter Notebook files

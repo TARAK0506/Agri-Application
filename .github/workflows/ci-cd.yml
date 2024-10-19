@@ -55,10 +55,6 @@ jobs:
 
         gdown "https://drive.google.com/file/d/1qGff2GL_azXE_3g1IjbipeWx55uXnzlE" -O "./app/DecisionTree.pkl"
         # The file will be downloaded and saved at ./app/DecisionTree.pkl
-        
-
-
-
 
     - name: Verify model file download
       run: |
@@ -99,19 +95,12 @@ jobs:
         docker tag agriculture-app:latest ${{ secrets.DOCKER_USERNAME }}/agriculture-app:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/agriculture-app:latest
 
-  deploy:
+  deploy_docker:
     runs-on: ubuntu-latest
     needs: docker_build
 
     steps:
-    - name: SSH into server and deploy
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USERNAME }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        script: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/agriculture-app:latest
-          docker stop agriculture-app || true
-          docker rm agriculture-app || true
-          docker run -d -p 80:5000 --name agriculture-app ${{ secrets.DOCKER_USERNAME }}/agriculture-app:latest
+    - name: Pull and run Docker container locally
+      run: |
+        docker pull ${{ secrets.DOCKER_USERNAME }}/agriculture-app:latest
+        docker run -d -p 80:5000 --name agriculture-app ${{ secrets.DOCKER_USERNAME }}/agriculture-app:latest

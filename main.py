@@ -43,7 +43,7 @@ crop_disease_model_path = os.path.join(working_dir, 'Models', 'Crop Disease Pred
 crop_disease_model = load_model(crop_disease_model_path)
 
 # Load the class names for the crop disease prediction model
-class_indices_path = os.path.join(working_dir, 'Data', 'class_indices.json')
+class_indices_path = os.path.join(working_dir, 'class_indices.json')
 with open(class_indices_path, 'r') as f:
     class_indices = json.load(f)
 
@@ -77,7 +77,7 @@ async def index(request: Request):
 
 # Crop Disease Prediction Route
 @app.post("/predict")
-async def predict(request: Request, file: UploadFile = File(...)):
+async def predict_disease(request: Request, file: UploadFile = File(...)):
     if not file.filename:
         raise HTTPException(status_code=400, detail="No selected file")
 

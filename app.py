@@ -14,7 +14,7 @@ os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
 
 # root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-# # print(f"Root directory: {root_dir}")
+# print(f"Root directory: {root_dir}")
 # sys.path.append(root_dir)
 # os.chdir(root_dir)
 
@@ -58,10 +58,10 @@ crop_disease_model, class_indices, crop_recommendation_model = load_model()
 
 # Preprocess image for crop disease prediction
 def preprocess_image(image):
-    image = image.resize((224, 224))  # Resize to model's expected input size
-    image = np.array(image)           # Convert to numpy array
-    image = np.expand_dims(image, axis=0)  # Add batch dimension
-    image = image / 255.0             # Normalize pixel values
+    image = image.resize((224, 224))  
+    image = np.array(image)           
+    image = np.expand_dims(image, axis=0) 
+    image = image / 255.0             
     return image
 
 @app.route('/')
@@ -133,4 +133,6 @@ if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
     
     
+
+
 
