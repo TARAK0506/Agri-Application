@@ -146,7 +146,7 @@ The deployment utilizes FastAPI to serve both models as API endpoints. The model
     ```bash 
     uvicorn main:app --reload
 
-2. **Access the API: The API can be accessed at http://127.0.0.1:8000/docs for API documentation (Swagger UI).**:
+2. **Access the API**: The API can be accessed at http://127.0.0.1:8000/docs for API documentation (Swagger UI).
 
 3. **Postman for API Testing**: API endpoints were thoroughly tested using Postman to ensure they are functioning correctly.
    
