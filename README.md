@@ -167,7 +167,7 @@ The CI/CD pipeline is defined in .github/workflows/cicd.yml.
 - Modify the cicd.yml file to customize the deployment steps based on your platform.
 
 ## Challenges
-- This repository demonstrates an **end-to-end deployment** of machine learning and deep learning models for agriculture, including **Plant disease prediction** , **Crop recommendation** and **Fertlizer recommendation**.
+- This repository demonstrates an **end-to-end deployment** of machine learning and deep learning models for agriculture, including **Plant disease prediction** ,**Crop recommendation** and **Fertlizer recommendation**.
 - The solution is optimized for deployment on **Heroku**, with seamless integration through **GitHub Actions** for CI/CD and containerization via **Docker**. This project also leverages model size reduction techniques like **quantization** and **pruning** to ensure deployment feasibility within Heroku’s constraints.
   
 ## Optimizations
