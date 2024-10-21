@@ -3,18 +3,21 @@ import os
 import json
 import pickle
 
+import warnings
+warnings.filterwarnings('ignore')
+
 import numpy as np
 from PIL import Image
 
-import tensorflow as tf
+import tensorflow as tf # type: ignore
 from keras.models import load_model # type: ignore
 
 
-from fastapi import FastAPI, UploadFile, File, HTTPException, Request
-from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request # type: ignore
+from fastapi.responses import HTMLResponse, JSONResponse # type: ignore
+from fastapi.staticfiles import StaticFiles # type: ignore
+from fastapi.templating import Jinja2Templates # type: ignore
+from fastapi.middleware.cors import CORSMiddleware # type: ignore
 
 
 # Set the environment variable to disable oneDNN custom operations
@@ -24,7 +27,7 @@ app = FastAPI()
 
 # Add CORS Middleware
 # origins = [
-#     "http://localhost:3000",  # Example: allow access from React app running on localhost:3000
+#     "http://localhost:3000",  
 #     "http://127.0.0.1:3000",
 #     # Add other origins as needed
 # ]
@@ -52,23 +55,16 @@ crop_recommendation_model_path = os.path.join(working_dir, 'Models', 'DecisionTr
 with open(crop_recommendation_model_path, 'rb') as model_file:
     crop_recommendation_model = pickle.load(model_file)
 
-# Set up static files and templates
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# Preprocess image for crop disease prediction
-"""def preprocess_image(image: Image.Image):
-    image = image.resize((224, 224))
-    image = np.array(image)
-    image = np.expand_dims(image, axis=0)
-    return image"""
-
 def preprocess_image(image):
-    # Example preprocessing steps (modify as needed)
-    image = image.resize((224, 224))  # Resize to the expected input size of the model
-    image_array = np.array(image)     # Convert to numpy array
-    image_array = image_array / 255.0 # Normalize pixel values to [0, 1]
-    image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
+    
+    image = image.resize((224, 224))  
+    image_array = np.array(image)    
+    image_array = image_array / 255.0 
+    image_array = np.expand_dims(image_array, axis=0)  
     return image_array
 
 @app.get("/", response_class=HTMLResponse)
@@ -84,7 +80,7 @@ async def predict_disease(request: Request, file: UploadFile = File(...)):
     try:
         # Read and process the image
         image = Image.open(io.BytesIO(await file.read()))
-        processed_image = preprocess_image(image)  # Ensure this function is correctly defined
+        processed_image = preprocess_image(image) 
         
         # Predict the crop disease
         predictions = crop_disease_model.predict(processed_image)
@@ -102,13 +98,13 @@ async def predict_disease(request: Request, file: UploadFile = File(...)):
 @app.post("/recommend")
 async def recommend_crop(data: dict):
     try:
-        # Check if required fields are present in data
+        
         required_fields = ['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall']
         for field in required_fields:
             if field not in data:
                 raise HTTPException(status_code=400, detail=f"Missing field: {field}")
 
-        # Extract features from the data dictionary
+        
         features = [
             data['N'],
             data['P'],
@@ -119,7 +115,7 @@ async def recommend_crop(data: dict):
             data['rainfall']
         ]
         
-        # Predict the recommended crop using the loaded model
+        
         recommended_crop = crop_recommendation_model.predict([features])[0]
         
         return JSONResponse(content={'recommended_crop': recommended_crop})
@@ -127,5 +123,5 @@ async def recommend_crop(data: dict):
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == '__main__':
-    import uvicorn
+    import uvicorn # type: ignore
     uvicorn.run(app, host="0.0.0.0", port=8000)

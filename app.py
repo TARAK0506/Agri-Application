@@ -95,23 +95,23 @@ def predict():
         return jsonify({'prediction': predicted_class_name})
 
     except Exception as e:
-        print(f"Error: {str(e)}")  # Log the error for debugging
+        print(f"Error: {str(e)}")  
         return jsonify({'error': str(e)}), 500
 
 # Route for Crop Recommendation
 @app.route('/recommend', methods=['POST'])
 def recommend_crop():
     try:
-        # Get the input data directly from the request
+        
         data = request.get_json()
         print(f"Received data: {data}")
 
-        # Validate input data
+       
         required_fields = ['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall']
         if not all(field in data for field in required_fields):
             return jsonify({'error': 'Missing required fields'}), 400
 
-        # Extract features for prediction
+    
         feature_values = [
             data['N'],
             data['P'],
@@ -122,7 +122,7 @@ def recommend_crop():
             data['rainfall']
         ]
 
-        # Predict the recommended crop using the loaded model
+        
         recommended_crop = crop_recommendation_model.predict([feature_values])[0]
         return jsonify({'recommended_crop': recommended_crop})
 
